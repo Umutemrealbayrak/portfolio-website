@@ -1,4 +1,4 @@
-/*import React from "react";
+import React from "react";
 import ImageGallery from "../components/ImageSlider";
 
 function Products() {
@@ -10,4 +10,4 @@ function Products() {
   );
 }
 
-export default Products;*/
+export default Products;
