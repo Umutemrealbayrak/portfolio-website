@@ -1,0 +1,115 @@
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.home-background {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Üst logo ve yuvarlaklar */
+.top-center-container {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+.top-logo {
+  width: 100px;
+  height: auto;
+  margin-bottom: 80px;
+}
+
+.circles-container {
+  display: flex;
+  gap: 15px;
+}
+
+.circle {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background-color: black;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.circle:hover {
+  transform: scale(1.2);
+  background-color: gray;
+}
+
+/* Yan yana foto bölümleri */
+.left-side, .right-side {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+/* İki katmanlı (crossfade) animasyon */
+.left-side::before, .left-side::after,
+.right-side::before, .right-side::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  animation: fadeSlide 4s ease-in-out infinite;
+}
+
+/* Sağ taraf biraz gecikmeli başlasın */
+.right-side::before,
+.right-side::after {
+  animation-delay: 2s;
+}
+
+/* Katman 1 */
+.left-side::before,
+.right-side::before {
+  background-image: url('../assets/indir.png');
+  animation-name: fadeSlideA;
+}
+
+/* Katman 2 */
+.left-side::after,
+.right-side::after {
+  background-image: url('../assets/indir1.jpeg');
+  animation-name: fadeSlideB;
+}
+
+/* Katman 1 görünür → kaybolur */
+@keyframes fadeSlideA {
+  0%, 45% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+  50%, 100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+/* Katman 2 görünmez → belirir */
+@keyframes fadeSlideB {
+  0%, 45% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  50%, 95% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+  100% {
+    opacity: 0;
+  }
+}
