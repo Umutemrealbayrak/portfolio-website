@@ -1,5 +1,6 @@
 import React from "react";
 import ImageGallery from "../components/ImageSlider";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Products() {
   return (

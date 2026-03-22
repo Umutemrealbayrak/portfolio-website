@@ -19,8 +19,8 @@ function Home() {
       </div>
 
       {/* Sürekli dönen banner alanları */}
-      <Link to="/products" className="side left-side"></Link>
-      <Link to="/products" className="side right-side"></Link>
+      <Link to="/Dekupe" className="side left-side"></Link>
+      <Link to="/Grafik" className="side right-side"></Link>
     </div>
   );
 }
