@@ -3,7 +3,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
-function ImageGallery({ categoryId }) {
+function ImageGallery({ categoryId, subCategoryId }) {
   const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState("");
 
@@ -15,9 +15,17 @@ function ImageGallery({ categoryId }) {
   }, []);
 
   // 🔥 FİLTRE
-  const filteredImages = categoryId
-    ? images.filter((img) => img.categoryId === categoryId)
-    : images;
+  const filteredImages = images.filter((img) => {
+  if (subCategoryId) {
+    return img.subCategoryId === subCategoryId;
+  }
+
+  if (categoryId) {
+    return img.categoryId === categoryId;
+  }
+
+  return true;
+});
 
   const handleMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();

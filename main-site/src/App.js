@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./pages/home";
 import Dekupe from "./pages/Dekupe";
 import Grafik from "./pages/Grafik";
+import SubCategoryPage from "./pages/SubCategoryPage";
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/dekupe" element={<Dekupe />} />
         <Route path="/grafik" element={<Grafik />} />
+        <Route path="/dekupe/:subId" element={<SubCategoryPage />} />
+        <Route path="/grafik/:subId" element={<SubCategoryPage />} />
       </Routes>
     </Router>
   );
