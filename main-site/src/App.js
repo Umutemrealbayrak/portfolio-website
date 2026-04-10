@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   BrowserRouter as Router,
   Routes,
@@ -30,6 +31,16 @@ function App() {
 
 function Navbar() {
   const location = useLocation();
+  const [dekupeSubs, setDekupeSubs] = useState([]);
+const [grafikSubs, setGrafikSubs] = useState([]);
+
+useEffect(() => {
+  axios.get("https://localhost:7148/api/images/sub-categories/1")
+    .then(res => setDekupeSubs(res.data));
+
+  axios.get("https://localhost:7148/api/images/sub-categories/2")
+    .then(res => setGrafikSubs(res.data));
+}, []);
 
   if (location.pathname === "/") return null;
 
