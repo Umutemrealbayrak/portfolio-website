@@ -1,35 +1,54 @@
 function Layout({ children, activePage, setActivePage }) {
   return (
-    <div className="d-flex" style={{ minHeight: "100vh" }}>
+    <div className="d-flex">
 
-      {/* 🔥 SIDEBAR */}
-      <div className="bg-dark text-white p-3" style={{ width: "250px" }}>
-        <h4 className="mb-4">Admin</h4>
+      {/* SOL MENÜ */}
+      <div className="bg-dark text-white p-3" style={{ width: "220px", minHeight: "100vh" }}>
 
-        <button
-          className={`btn w-100 mb-2 ${
-            activePage === "upload"
-              ? "btn-light text-dark"
-              : "btn-outline-light"
-          }`}
+        <h5 className="mb-4">Admin</h5>
+
+        <div
+          className="mb-3"
+          style={{
+            cursor: "pointer",
+            background: activePage === "upload" ? "#444" : "transparent",
+            padding: "8px",
+            borderRadius: "5px"
+          }}
           onClick={() => setActivePage("upload")}
         >
-          Fotoğraf Ekle
-        </button>
+          Grafik Foto
+        </div>
 
-        <button
-          className={`btn w-100 ${
-            activePage === "subcategory"
-              ? "btn-light text-dark"
-              : "btn-outline-light"
-          }`}
+        <div
+          className="mb-3"
+          style={{
+            cursor: "pointer",
+            background: activePage === "dekupe" ? "#444" : "transparent",
+            padding: "8px",
+            borderRadius: "5px"
+          }}
+          onClick={() => setActivePage("dekupe")}
+        >
+          Dekupe (Before/After)
+        </div>
+
+        <div
+          className="mb-3"
+          style={{
+            cursor: "pointer",
+            background: activePage === "subcategory" ? "#444" : "transparent",
+            padding: "8px",
+            borderRadius: "5px"
+          }}
           onClick={() => setActivePage("subcategory")}
         >
-          Alt Kategori Ekle
-        </button>
+          Alt Kategori
+        </div>
+
       </div>
 
-      {/* 🔥 CONTENT */}
+      {/* SAĞ CONTENT */}
       <div className="flex-grow-1 p-4">
         {children}
       </div>

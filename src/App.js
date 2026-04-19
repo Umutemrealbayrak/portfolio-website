@@ -8,6 +8,7 @@ import Layout from "./Components/Layout";
 import UploadForm from "./Components/UploadForm";
 import AddSubCategoryForm from "./Components/AddSubCategoryForm";
 import ImageGallery from "./Components/ImageGallery";
+import UploadPairForm from "./Components/UploadPairForm";
 
 function App() {
   const [file, setFile] = useState(null);
@@ -51,6 +52,27 @@ function App() {
     fetchImages();
     fetchMainCategories();
   }, []);
+  useEffect(() => {
+  console.log("ACTIVE PAGE:", activePage);
+
+  if (activePage === "upload") {
+    axios
+      .get(`${API_URL}/sub-categories/2`)
+      .then(res => {
+        console.log("GRAFİK:", res.data);
+        setSubCategories(res.data);
+      });
+  }
+
+  if (activePage === "dekupe") {
+    axios
+      .get(`${API_URL}/sub-categories/1`)
+      .then(res => {
+        console.log("DEKUPE:", res.data);
+        setSubCategories(res.data);
+      });
+  }
+}, [activePage]);
 
   // 🔥 MAIN CHANGE → SUB GETİR
   const handleMainChange = async (e) => {
@@ -131,20 +153,34 @@ function App() {
 
     <h2 className="mb-4">Admin Panel</h2>
 
+    {/* 🔥 GRAFİK */}
     {activePage === "upload" && (
-      <UploadForm
-        mainCategories={mainCategories}
-        subCategories={subCategories}
-        selectedMain={selectedMain}
-        selectedSub={selectedSub}
-        handleMainChange={handleMainChange}
-        setSelectedSub={setSelectedSub}
-        handleFileChange={handleFileChange}
-        handleUpload={handleUpload}
-        preview={preview}
-      />
+      <>
+        <UploadForm
+          mainCategories={mainCategories}
+          subCategories={subCategories}
+          selectedMain={selectedMain}
+          selectedSub={selectedSub}
+          handleMainChange={handleMainChange}
+          setSelectedSub={setSelectedSub}
+          handleFileChange={handleFileChange}
+          handleUpload={handleUpload}
+          preview={preview}
+        />
+
+        <ImageGallery
+          images={images}
+          handleDelete={handleDelete}
+        />
+      </>
     )}
 
+    {/* 🔥 DEKUPE */}
+    {activePage === "dekupe" && (
+      <UploadPairForm subCategories={subCategories} />
+    )}
+
+    {/* 🔥 ALT KATEGORİ */}
     {activePage === "subcategory" && (
       <AddSubCategoryForm
         mainCategories={mainCategories}
@@ -154,11 +190,6 @@ function App() {
         handleAddSubCategory={handleAddSubCategory}
       />
     )}
-
-    <ImageGallery
-      images={images}
-      handleDelete={handleDelete}
-    />
 
   </Layout>
 );

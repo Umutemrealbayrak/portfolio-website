@@ -1,9 +1,6 @@
 function UploadForm({
-  mainCategories,
   subCategories,
-  selectedMain,
   selectedSub,
-  handleMainChange,
   setSelectedSub,
   handleFileChange,
   handleUpload,
@@ -13,26 +10,13 @@ function UploadForm({
     <div className="card shadow-sm mb-4">
       <div className="card-body">
 
-        <h5 className="mb-3">Fotoğraf Yükle</h5>
+        <h5 className="mb-3">Grafik Foto Yükle</h5>
 
         <div className="row g-3">
 
-          <div className="col-md-6">
-            <select
-              className="form-select"
-              onChange={handleMainChange}
-              value={selectedMain}
-            >
-              <option value="">Ana kategori seç</option>
-              {mainCategories.map((x) => (
-                <option key={x.Id} value={x.Id}>
-                  {x.Name}
-                </option>
-              ))}
-            </select>
-          </div>
+          {/* ❌ ANA KATEGORİ KALDIRILDI */}
 
-          <div className="col-md-6">
+          <div className="col-md-12">
             <select
               className="form-select"
               onChange={(e) => setSelectedSub(e.target.value)}
@@ -73,5 +57,4 @@ function UploadForm({
     </div>
   );
 }
-
 export default UploadForm;
