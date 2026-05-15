@@ -1,0 +1,69 @@
+.ba-wipe {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+
+/* ALT FOTO */
+.base {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ÜST FOTO */
+.top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  /* 🔥 BAŞLANGIÇ: YARISI GÖRÜNSÜN */
+  clip-path: inset(0 50% 0 0);
+}
+
+/* ÇİZGİ */
+.handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 3px;
+  background: white;
+  cursor: ew-resize;
+  z-index: 10;
+}
+
+/* 🔥 YUVARLAK BUTON */
+.handle::after {
+  content: "⇔";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+
+  background: linear-gradient(135deg, #ffb800, #ff8c00);
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+/* 🔥 HOVER EFEKTİ */
+.handle:hover::after {
+  transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
