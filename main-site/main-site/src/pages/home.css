@@ -28,35 +28,20 @@ html, body, #root {
   width: 100px;
   height: auto;
   margin-bottom: 80px;
-  margin-bottom: 30px;
 }
-.top-center-container {
-  position: absolute;
-  top: 3px; /* 🔥 3px değil direkt en üste al */
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 10;
-}
+
 .circles-container {
   display: flex;
-  gap: 20px;
-  margin-top: -20px; /* 🔥 yukarı çeker */
+  gap: 15px;
 }
 
 .circle {
-  width: 55px;   /* 🔥 küçülttük */
-  height: 55px;
+  width: 75px;
+  height: 75px;
   border-radius: 50%;
-
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
+  background-color: black;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
 .circle:hover {
@@ -91,7 +76,7 @@ html, body, #root {
 /* Katman 1 */
 .left-side::before,
 .right-side::before {
-  background-image: url('../assets/yeğenim.png');
+  background-image: url('../assets/indir.png');
   animation-name: fadeSlideA;
 }
 
@@ -128,4 +113,3 @@ html, body, #root {
     opacity: 0;
   }
 }
-  

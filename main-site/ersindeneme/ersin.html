@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Before/After Slider</title>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        /* CSS AYARLARI */
+        .ba-slider {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 800px; /* Görselin çok büyümemesi için sınır eklendi */
+            margin: 0 auto;
+        }
+         
+        .ba-slider img {
+            width: 100%;
+            display: block;
+        }
+         
+        .resize {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 50%;
+            overflow: hidden;
+        }
+
+        .handle { 
+            position: absolute; 
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            margin-left: -2px;
+            background: rgba(0,0,0,.5);
+            cursor: ew-resize;
+            z-index: 10;
+        }
+         
+        .handle:after {
+            position: absolute;
+            top: 50%;
+            width: 64px;
+            height: 64px;
+            margin: -32px 0 0 -32px;
+            content: '\21d4';
+            color: white;
+            font-weight: bold;
+            font-size: 36px;
+            text-align: center;
+            line-height: 64px;
+            background: #ffb800;
+            border: 1px solid #e6a600;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,.3), 
+                        inset 0 2px 0 rgba(255,255,255,.5),
+                        inset 0 60px 50px -30px #ffd466;
+        }
+
+        .draggable:after {
+            width: 48px;
+            height: 48px;
+            margin: -24px 0 0 -24px;
+            line-height: 48px;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ba-slider">
+        <img src="http://egegorgulu.com/assets/img/beforeafter/after.jpg" alt="After">      
+        <div class="resize">
+            <img src="http://egegorgulu.com/assets/img/beforeafter/before.jpg" alt="Before">
+        </div>
+        <span class="handle"></span>
+    </div>
+
+    <script>
+        /* JAVASCRIPT KODLARI */
+        $(document).ready(function(){
+            $('.ba-slider').each(function(){
+                var cur = $(this);
+                var width = cur.width() + 'px';
+                cur.find('.resize img').css('width', width);
+                drags(cur.find('.handle'), cur.find('.resize'), cur);
+            });
+        });
+
+        $(window).resize(function(){
+            $('.ba-slider').each(function(){
+                var cur = $(this);
+                var width = cur.width() + 'px';
+                cur.find('.resize img').css('width', width);
+            });
+        });
+
+        function drags(dragElement, resizeElement, container) {
+            dragElement.on('mousedown touchstart', function(e) {
+                dragElement.addClass('draggable');
+                resizeElement.addClass('resizable');
+                
+                var startX = (e.pageX) ? e.pageX : e.originalEvent.touches[0].pageX;
+                var dragWidth = dragElement.outerWidth(),
+                    posX = dragElement.offset().left + dragWidth - startX,
+                    containerOffset = container.offset().left,
+                    containerWidth = container.outerWidth();
+             
+                minLeft = containerOffset + 10;
+                maxLeft = containerOffset + containerWidth - dragWidth - 10;
+                
+                dragElement.parents().on("mousemove touchmove", function(e) {
+                    var moveX = (e.pageX) ? e.pageX : e.originalEvent.touches[0].pageX;
+                    leftValue = moveX + posX - dragWidth;
+                    
+                    if (leftValue < minLeft) {
+                        leftValue = minLeft;
+                    } else if (leftValue > maxLeft) {
+                        leftValue = maxLeft;
+                    }
+                    
+                    widthValue = (leftValue + dragWidth/2 - containerOffset)*100/containerWidth + '%';
+                    
+                    $('.draggable').css('left', widthValue).on('mouseup touchend touchcancel', function () {
+                        $(this).removeClass('draggable');
+                        resizeElement.removeClass('resizable');
+                    });
+                    $('.resizable').css('width', widthValue);
+                }).on('mouseup touchend touchcancel', function(){
+                    dragElement.removeClass('draggable');
+                    resizeElement.removeClass('resizable');
+                });
+                e.preventDefault();
+            }).on('mouseup touchend touchcancel', function(e){
+                dragElement.removeClass('draggable');
+                resizeElement.removeClass('resizable');
+            });
+        }
+    </script>
+
+</body>
+</html>
